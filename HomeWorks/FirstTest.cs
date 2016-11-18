@@ -8,8 +8,7 @@ namespace SeleniumExample
 {
     [TestFixture]
     public class FirstTest
-    {
-        //ChromeDriver chrome;
+    {        
         private IWebDriver driver;
         private WebDriverWait wait;
         [SetUp]
@@ -32,8 +31,7 @@ namespace SeleniumExample
             driver.FindElement(By.Name("btnG")).Click();
             wait.Until(ExpectedConditions.TitleIs("WebDriver - Google Search"));
         }
-
-        // разрушение объекта драйвера после окончание теста.
+                
         [TearDown]
         public void Stop()
         {
