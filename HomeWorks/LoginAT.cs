@@ -1,6 +1,8 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.IE;
 using OpenQA.Selenium.Support.UI;
 using System;
 
@@ -15,7 +17,9 @@ namespace SeleniumExample
 
         public void Start()
         {
-            driver = new ChromeDriver();
+            //driver = new ChromeDriver();
+            driver = new InternetExplorerDriver();
+            //driver = new FirefoxDriver();
             wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
 
         }
