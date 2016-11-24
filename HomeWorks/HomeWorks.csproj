@@ -68,9 +68,11 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Helper.cs" />
     <Compile Include="LoginAT.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FirstTest.cs" />
+    <Compile Include="LeftMenu.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

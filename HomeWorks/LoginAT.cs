@@ -17,8 +17,8 @@ namespace SeleniumExample
 
         public void Start()
         {
-            //driver = new ChromeDriver();
-            driver = new InternetExplorerDriver();
+            driver = new ChromeDriver();
+            //driver = new InternetExplorerDriver();
             //driver = new FirefoxDriver();
             wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
 
