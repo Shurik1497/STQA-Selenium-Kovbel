@@ -18,37 +18,40 @@ namespace SeleniumExample
 
         public void Start()
         {
-            driver = new ChromeDriver();
+            ChromeOptions options = new ChromeOptions();
+            options.AddArgument("start-maximized");
+            driver = new ChromeDriver(options);
             //driver = new InternetExplorerDriver();
             //driver = new FirefoxDriver();
             wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-
         }
 
         [Test]
-        public void CheckStickersOnMainPage()
+        public void StickersOnMainPage()
         {
             List<IWebElement> products = new List<IWebElement>();
             List<IWebElement> stickers = new List<IWebElement>();
+            List<int> itemsWithExceptions = new List<int>();  //can be used for detail description in log (not impemented)
+            int i = 0;
 
-            driver.Manage().Window.Maximize();
             driver.Url = ("http://localhost/litecart/en/");
 
             products.AddRange(driver.FindElements(By.CssSelector("li.product.hover-light")));
 
             foreach (IWebElement product in products) {
-                stickers.AddRange(product.FindElements(By.CssSelector(".sticker.sale")));
-                stickers.AddRange(product.FindElements(By.CssSelector(".sticker.new")));
-
-                int i = 0;
+                stickers.AddRange(product.FindElements(By.CssSelector(".sticker")));
                 
                 if (stickers.Count != 1) {
-                    // Exception;
-                    throw new System.Exception(i + " item has count of stockers = " + stickers.Count + stickers[0].Text);
+                    itemsWithExceptions.Add(i);
                 }
+
                 i++;
                 stickers.Clear();
             }
+
+            if (itemsWithExceptions.Count != 0) {
+                throw new System.Exception("There is at least one item which has count of stickers != 1 ");
+            }            
         }
 
         [TearDown]

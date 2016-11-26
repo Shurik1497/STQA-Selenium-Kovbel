@@ -74,6 +74,7 @@
     <Compile Include="FirstTest.cs" />
     <Compile Include="LeftMenu.cs" />
     <Compile Include="CheckStickers.cs" />
+    <Compile Include="SortCountries.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -21,7 +21,9 @@ namespace HomeWorks
 
         public void Start()
         {
-            driver = new ChromeDriver();
+            ChromeOptions options = new ChromeOptions();
+            options.AddArgument("start-maximized");
+            driver = new ChromeDriver(options);
             //driver = new InternetExplorerDriver();
             //driver = new FirefoxDriver();
             wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
@@ -29,55 +31,51 @@ namespace HomeWorks
         }
 
         [Test]
-        public void CheckLeftMenu()
+        public void ClickLeftMenuItems()
         {
-            driver.Manage().Window.Maximize();
             driver.Url = ("http://localhost/litecart/admin");
             driver.FindElement(By.Name("username")).SendKeys("admin");
             driver.FindElement(By.Name("password")).SendKeys("admin");
             driver.FindElement(By.Name("login")).Click();
             wait.Until(ExpectedConditions.TitleIs("My Store"));            
             
-            List<IWebElement> lmParentItemsObject = new List<IWebElement>();
-            List<IWebElement> lmChildItemsObject = new List<IWebElement>();
-            List<String> lmParentItemsString = new List<String>();
-            List<String> lmChildItemsString = new List<String>();
+            List<IWebElement> ParentItemsObject = new List<IWebElement>();
+            List<IWebElement> ChildItemsObject = new List<IWebElement>();
+            List<String> ParentItemsString = new List<String>();
+            List<String> ChildItemsString = new List<String>();
 
-            lmParentItemsObject.AddRange(driver.FindElements(By.CssSelector("#box-apps-menu-wrapper li#app-")));
+            ParentItemsObject.AddRange(driver.FindElements(By.CssSelector("#box-apps-menu-wrapper li#app-")));
 
-            foreach (IWebElement objectIteml in lmParentItemsObject)
+            foreach (IWebElement objectIteml in ParentItemsObject)
             {
-                lmParentItemsString.Add(objectIteml.Text);
+                ParentItemsString.Add(objectIteml.Text);
             }
 
-            foreach (String stringItem in lmParentItemsString)
+            foreach (String stringItem in ParentItemsString)
             {
-
                 driver.FindElement(By.LinkText(stringItem)).Click();
+                wait.Until(ExpectedConditions.ElementExists(By.CssSelector("Head Title")));
 
-                driver.FindElement(By.CssSelector("Head Title"));
-
-                lmChildItemsObject.AddRange(driver.FindElements(By.CssSelector("#box-apps-menu-wrapper li#app- li")));
+                ChildItemsObject.AddRange(driver.FindElements(By.CssSelector("#box-apps-menu-wrapper li#app- li")));
                 
-                foreach (IWebElement objectIteml in lmChildItemsObject)
+                foreach (IWebElement objectIteml in ChildItemsObject)
                 {
-                    lmChildItemsString.Add(objectIteml.Text);
+                    ChildItemsString.Add(objectIteml.Text);
                 }
                 
-                int count = lmChildItemsObject.Count;
+                int count = ChildItemsObject.Count;
                 if (count != 0)
                 {
                     for (int i = 1; i < count; i++)
                     {
-                        driver.FindElement(By.LinkText(lmChildItemsString[i])).Click();
-                        driver.FindElement(By.CssSelector("Head Title"));
+                        driver.FindElement(By.LinkText(ChildItemsString[i])).Click();
+                        wait.Until(ExpectedConditions.ElementExists(By.CssSelector("Head Title")));
                     }
 
                 }
 
-                lmChildItemsObject.RemoveRange(0, lmChildItemsObject.Count);
-                lmChildItemsString.RemoveRange(0, lmChildItemsString.Count);
-
+                ChildItemsObject.Clear();
+                ChildItemsString.Clear();
             }
         }
         [TearDown]
