@@ -10,7 +10,7 @@ using System.Collections.Generic;
 namespace SeleniumExample
 {
     [TestFixture]
-    public class CheckStickers
+    public class StickersMainPage
     {
         private IWebDriver driver;
         private WebDriverWait wait;
