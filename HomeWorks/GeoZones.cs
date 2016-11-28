@@ -35,7 +35,8 @@ namespace SeleniumExample
             List<string> countries = new List<string>();
             List<string> timeZones = new List<string>();
             Helpers helper = new Helpers();
-
+            Int32 index;
+            string locator;
 
             driver.Url = ("http://localhost/litecart/admin/?app=geo_zones&doc=geo_zones");
             driver.FindElement(By.Name("username")).SendKeys("admin");
@@ -43,11 +44,12 @@ namespace SeleniumExample
             driver.FindElement(By.Name("login")).Click();
 
             headerCells.AddRange(driver.FindElements(By.CssSelector("table.dataTable tr.header th")));
-            cells.AddRange(driver.FindElements(By.CssSelector("tr.row td")));
+            
+            index = helper.GetColumnIndex(headerCells, "Name") + 1;
+            locator = "tr.row td:nth-of-type(" + index + ")";
+            cells.AddRange(driver.FindElements(By.CssSelector(locator)));
 
-            helper.GridsParser(cells, headerCells, countries, "Name");
-
-
+            helper.GetInnerText(cells, countries, index);
 
             foreach (string country in countries) {
                 driver.FindElement(By.LinkText(country)).Click();
@@ -56,29 +58,12 @@ namespace SeleniumExample
                 headerCells.Clear();
 
                 headerCells.AddRange(driver.FindElements(By.CssSelector("table.dataTable tr.header th")));
-                cells.AddRange(driver.FindElements(By.CssSelector("table.dataTable tr td")));
 
-                //helper.GridsParser(cells, headerCells, timeZones, "Zone"); - не осилил я хелпер который будет универсальным для всех тестов, потому - костыль (...
+                index = helper.GetColumnIndex(headerCells, "Zone") + 1;
+                locator = "table.dataTable td:nth-of-type(" + index + ") option[selected=selected]";
+                cells.AddRange(driver.FindElements(By.CssSelector(locator)));
 
-                string index = "";
-
-                foreach (IWebElement element in headerCells)
-                {
-                    if (element.GetAttribute("innerText") == "Zone")
-                    {
-                        index = element.GetAttribute("cellIndex");
-                    }
-                }
-
-
-                foreach (IWebElement cell in cells)
-                {
-                    if (cell.GetAttribute("cellIndex") == index)
-                    {
-                        timeZones.Add(cell.FindElement(By.CssSelector("[selected=selected]")).GetAttribute("innerText"));
-                        string zones = timeZones[0];
-                    }
-                }
+                helper.GetInnerText(cells, timeZones, index);
 
                 helper.CheckOrder(timeZones);
 

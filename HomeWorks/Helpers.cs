@@ -8,26 +8,25 @@ namespace HomeWorks
 {
     class Helpers
     {
-        public void GridsParser (List<IWebElement> gridCells, List<IWebElement> headerCells, List<string> outputCollection, string columnName) {
 
-            string index = "";
+        public void GetInnerText (List<IWebElement> gridCells, List<string> outputCollection, Int32 columnIndex) {
+            foreach (IWebElement cell in gridCells)
+            {
+                outputCollection.Add(cell.GetAttribute("innerText"));         
+            }
+        }
 
+
+        public Int32 GetColumnIndex(List<IWebElement> headerCells, string columnName) {
+            Int32 i = 0;
             foreach (IWebElement element in headerCells)
             {
                 if (element.GetAttribute("innerText") == columnName)
                 {
-                    index = element.GetAttribute("cellIndex");
+                    i = i + Int32.Parse(element.GetAttribute("cellIndex"));
                 }
             }
-
-
-            foreach (IWebElement cell in gridCells)
-            {
-                if (cell.GetAttribute("cellIndex") == index)
-                {
-                    outputCollection.Add(cell.GetAttribute("innerText"));                    
-                }
-            }
+            return i;
         }
 
         public void CheckOrder(List<string> list) {

@@ -34,7 +34,7 @@ namespace SeleniumExample
             List<string> countries = new List<string>();
             List<IWebElement> headerCells = new List<IWebElement>();
             Helpers helper = new Helpers();
-            
+            Int32 index;
 
             driver.Url = ("http://localhost/litecart/admin/?app=countries&doc=countries");
             driver.FindElement(By.Name("username")).SendKeys("admin");
@@ -43,9 +43,13 @@ namespace SeleniumExample
 
             headerCells.AddRange(driver.FindElements(By.CssSelector("table.dataTable tr.header th")));
 
-            cells.AddRange(driver.FindElements(By.CssSelector("tr.row td")));
+            index = helper.GetColumnIndex(headerCells, "Name") + 1;
+            
+            string locator = "tr.row td:nth-of-type(" + index + ")";
 
-            helper.GridsParser(cells, headerCells, countries, "Name");
+            cells.AddRange(driver.FindElements(By.CssSelector(locator)));
+
+            helper.GetInnerText(cells, countries, index);
             helper.CheckOrder(countries);
             
         }
