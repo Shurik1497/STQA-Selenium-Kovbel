@@ -8,7 +8,6 @@ namespace HomeWorks
 {
     class Helpers
     {
-
         public void GetInnerText (List<IWebElement> gridCells, List<string> outputCollection, Int32 columnIndex) {
             foreach (IWebElement cell in gridCells)
             {
@@ -38,5 +37,14 @@ namespace HomeWorks
                 }
             }
         }
+
+        public void CheckCheckbox(IWebElement checkBox, bool value) {
+            if (value == false && checkBox.GetAttribute("checked") == "true")
+                checkBox.Click();
+            if (value == true && checkBox.GetAttribute("checked") != "true")
+                checkBox.Click();
+
+        }
+
     }
 }

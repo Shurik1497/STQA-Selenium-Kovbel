@@ -78,6 +78,7 @@
     <Compile Include="SortCountries.cs" />
     <Compile Include="GeoZones.cs" />
     <Compile Include="ProductPage.cs" />
+    <Compile Include="NewAccaunt.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
