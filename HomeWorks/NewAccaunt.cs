@@ -34,13 +34,8 @@ namespace HomeWorks
             string country = "Afghanistan";
             bool subscribe = false;
             string password = "Password";
-
-            string email;
-            email = "AT" + randomInt.Next(0, 99999) + "@gmail.com";
-
+            string email = "AT" + randomInt.Next(0, 99999) + "@gmail.com";
             List<IWebElement> input = new List<IWebElement>();
-            
-
             Helpers helper = new Helpers();
 
             driver.Url = ("http://localhost/litecart/en/");
@@ -74,17 +69,15 @@ namespace HomeWorks
                         break;
                 }
             }
-
  
             driver.FindElement(By.CssSelector("button[type=submit]")).Click();
 
-            driver.FindElement(By.LinkText("Logout")).Click();
 
-            driver.FindElement(By.CssSelector("input[name=email]")).SendKeys(email);
-            driver.FindElement(By.CssSelector("input[type=password]")).SendKeys(password);
-            driver.FindElement(By.CssSelector("button[type=submit]")).Click();
+            helper.Logout(driver);
 
-            driver.FindElement(By.LinkText("Logout")).Click();
+            helper.Login(driver, email, password);
+
+            helper.Logout(driver);
         }
 
         [TearDown]

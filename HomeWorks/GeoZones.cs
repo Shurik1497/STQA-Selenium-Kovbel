@@ -38,10 +38,9 @@ namespace SeleniumExample
             Int32 index;
             string locator;
 
+            helper.LoginAT(driver);
+
             driver.Url = ("http://localhost/litecart/admin/?app=geo_zones&doc=geo_zones");
-            driver.FindElement(By.Name("username")).SendKeys("admin");
-            driver.FindElement(By.Name("password")).SendKeys("admin");
-            driver.FindElement(By.Name("login")).Click();
 
             headerCells.AddRange(driver.FindElements(By.CssSelector("table.dataTable tr.header th")));
             
