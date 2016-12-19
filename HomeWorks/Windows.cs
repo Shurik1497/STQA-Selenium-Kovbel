@@ -7,7 +7,6 @@ using OpenQA.Selenium.IE;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
-using System.IO;
 
 namespace SeleniumExample
 {
@@ -51,14 +50,9 @@ namespace SeleniumExample
 
             foreach (string element in blankString) {
                 driver.FindElement(By.XPath("//a[@href='" + element + "']")).Click();
-                windows.AddRange(driver.WindowHandles);
 
-                if (windows.Count == 1)
-                    throw new System.Exception("Link wasn't opened in new tab or window");
-                foreach (string window in windows) {
-                    if (window != mainWindow)
-                        newWindow = window;
-                }
+                newWindow = wait.Until(helper.AnyWindowOtherThan(mainWindow));
+
                 driver.SwitchTo().Window(newWindow);
                 driver.Close();
                 driver.SwitchTo().Window(mainWindow);

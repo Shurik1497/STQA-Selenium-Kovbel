@@ -97,5 +97,15 @@ namespace HomeWorks
             driver.FindElement(By.XPath("//button[@name='add_cart_product']")).Click();
         }
 
+        public Func<IWebDriver, string> AnyWindowOtherThan(string oldWindows)
+        {
+            return (driver) =>
+            {
+                List<string> newWindows = new List<string>(driver.WindowHandles);
+                newWindows.RemoveAll(h => oldWindows.Contains(h));
+                return newWindows.Count > 0 ? newWindows[0] : null;
+            };
+        }
+
     }
 }
