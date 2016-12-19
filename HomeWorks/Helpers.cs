@@ -107,5 +107,13 @@ namespace HomeWorks
             };
         }
 
+        public string GetAssemblyPath(string localPath)
+        {
+            string fullPath;
+            string assemblyPath = System.Reflection.Assembly.GetAssembly(typeof(Helpers)).Location;
+            fullPath = assemblyPath.Remove(assemblyPath.LastIndexOf("\\bin")) + localPath;
+            return fullPath;
+        }
+
     }
 }
