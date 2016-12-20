@@ -37,6 +37,16 @@ namespace HomeWorks
             }
         }
 
+        public List<string> GetAttribut(List<IWebElement> elements, string attribute)
+        {
+            List<string> outputCollection = new List<string>();
+            foreach (IWebElement cell in elements)
+            {
+                outputCollection.Add(cell.GetAttribute(attribute));
+            }
+            return outputCollection;
+        }
+
 
         public Int32 GetColumnIndex(List<IWebElement> headerCells, string columnName) {
             Int32 i = 0;

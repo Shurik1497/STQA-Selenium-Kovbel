@@ -81,6 +81,7 @@
     <Compile Include="NewAccaunt.cs" />
     <Compile Include="NewProduct.cs" />
     <Compile Include="Cart.cs" />
+    <Compile Include="BrowserLogs.cs" />
     <Compile Include="Windows.cs" />
   </ItemGroup>
   <ItemGroup>
