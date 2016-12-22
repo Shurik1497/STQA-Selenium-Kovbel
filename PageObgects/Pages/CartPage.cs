@@ -30,8 +30,6 @@ namespace PageObjects
         [FindsBy(How = How.XPath, Using = "//li[@class='item'][1]//button[@name='remove_cart_item']")]
         private IWebElement deleteButton;
 
-        
-
         public int CountOfItms()
         {
             int countOfItms;

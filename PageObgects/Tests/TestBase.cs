@@ -12,11 +12,11 @@ namespace PageObjects
             app = new Application();
         }
 
-        //[TearDown]
-        //public void stop()
-        //{
-        //    app.Quit();
-        //    app = null;
-        //}
+        [TearDown]
+        public void stop()
+        {
+            app.Quit();
+            app = null;
+        }
     }
 }
